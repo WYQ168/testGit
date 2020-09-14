@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: product-service
+  zipkin:
+    base-url: http://localhost:8778
+  sleuth:
+    sampler:
+      probability: 1.0
+---
+spring:
+  profiles: productService1
+server:
+  port: 8882
+eureka:
+  client:
+   service-url:
+      defaultZone: http://localhost:9999/eureka/
+
+---
+spring:
+  profiles: productService2
+server:
+  port: 8884
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9999/eureka/

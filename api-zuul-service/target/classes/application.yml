@@ -1,0 +1,33 @@
+
+spring:
+  application:
+    name: api-zuul-server
+
+zuul:
+  routes:
+    api-index:
+      path: /index/**
+      serviceId: index-service
+    api-product:
+      path: /product/**
+      serviceId: product-service
+
+---
+spring:
+  profiles: apizuulservice1
+server:
+  port: 10086
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9988/eureka/,http://localhost:9999/eureka/
+
+---
+spring:
+  profiles: apizuulservice2
+server:
+  port: 10000
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9999/eureka/,http://localhost:9988/eureka/

@@ -1,0 +1,14 @@
+server:
+  port: 10033
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  rabbitmq:
+    host: 193.112.19.133
+    virtual-host: java1907
+    username: java1907
+    password: 123

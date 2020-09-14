@@ -1,0 +1,47 @@
+server:
+  port: 8885
+
+spring:
+  application:
+    name: index-service
+  zipkin:
+    base-url: http://localhost:8778
+  sleuth:
+    sampler:
+      probability: 1.0
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9999/eureka/
+
+#配置调用product-service 服务采用的负载均衡策略
+#NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+product-service:
+  ribbon:
+    OkToRetryOnAllOperations: true # 是否对所有操作都进行重试
+    MaxAutoRetriesNextServer: 2 # 切换实例的重试次数
+#熔断器
+feign:
+  hystrix:
+    enabled: true
+
+#对外开放健康监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 3000
+#            #默认的连接超时时间1秒,若1秒没有返回数据,自动的触发降级逻辑
+#      circuitBreaker:
+#        enabled: true
+#          requestVolumeThreshold: 5 #触发熔断的最小请求次数，默认20
+#          errorThresholdPercentage: 10 #触发熔断的失败请求最小占比，默认50%
+#          sleepWindowInMilliseconds: 10000 #熔断多少秒后去尝试请求，默认是5S

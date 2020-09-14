@@ -1,0 +1,29 @@
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka/
+
+spring:
+  application:
+    name: eureka-service
+---
+spring:
+  profiles: eurekaService1
+server:
+  port: 9999
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9988/eureka/
+
+---
+spring:
+  profiles: eurekaService2
+server:
+  port: 9988
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9999/eureka/
